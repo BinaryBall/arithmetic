@@ -23,10 +23,10 @@ import java.util.Map;
 public class Arithmetic03 {
 
     public static void main(String[] args) {
-       int[] A = new int[]{4,5,0,-2,-3,1};
+       int[] A = new int[]{4,5,0,-2};
        int K = 5;
-       forSolution(A,K);
-       subArraysDivByK(A,K);
+       System.out.println(forSolution(A,K));
+       System.out.println(remainder(A,K));
     }
 
     /**
@@ -46,33 +46,6 @@ public class Arithmetic03 {
             }
         }
         return res;
-    }
-
-    public static int subArraysDivByK(int[] A, int K) {
-        Map<Integer, Integer> map = new HashMap<>(16);
-        int sum = 0;
-        for (int ele : A) {
-            sum += ele;
-            sum %= K;
-            if (sum < 0) {
-                sum += K;
-            }
-            if (map.containsKey(sum)) {
-                map.put(sum, map.get(sum) + 1);
-            } else {
-                map.put(sum, 1);
-            }
-        }
-        System.out.println(map.toString());
-        int count = 0;
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            int val = entry.getValue();
-            count += val * (val - 1) / 2;
-            if (entry.getKey() == 0) {
-                count += val;
-            }
-        }
-        return count;
     }
 
     /**
