@@ -34,17 +34,18 @@ public class Arithmetic03 {
      * @param A
      * @param K
      */
-    public static void forSolution(int[] A, int K) {
+    public static int forSolution(int[] A, int K) {
         int res = 0;
         for (int i = 0; i < A.length; i++) {
             int sum = A[i];
             if (sum % K == 0) ++res;
             for (int j = i + 1; j < A.length; j++) {
                 sum += A[j];
+
                 if (sum % K == 0) ++res;
             }
         }
-        System.out.println(res);
+        return res;
     }
 
     public static int subArraysDivByK(int[] A, int K) {
@@ -74,15 +75,27 @@ public class Arithmetic03 {
         return count;
     }
 
-    public int subarraysDivByK(int[] A, int K) {
-        int[] cnt = new int[K];
-        cnt[0] = 1;
-        int sum = 0, res = 0;
+    /**
+     * 同余定理
+     * @param A
+     * @param K
+     * @return
+     */
+    public static int remainder(int[] A, int K) {
+        // 新new　一个余数大小的数组
+        int[] remainder = new int[K];
+        // 默认有一个解
+        remainder[0] = 1;
+        // 余数
+        int mod = 0;
+        // 求解个数
+        int res = 0;
         for (int n: A) {
-            sum = (sum + n) % K;
-            if (sum < 0) sum += K;
-            res += cnt[sum];
-            cnt[sum]++;
+            mod = (mod + n) % K;
+            // 如果余数为负数　我们将余数转为正余数
+            if (mod < 0) mod += K;
+            res += remainder[mod];
+            remainder[mod]++;
         }
         return res;
     }
